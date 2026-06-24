@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {% if form.instance.pk %} Create {% else %} Add {% endif %} Product
+{% endblock %}
+{% block extra_header %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm "> 
+        <div class="container py-2">
+            <div>
+                <i class="bi bi-box-arrow-left text-warning fw-bold h4 mb-0"></i><a class="navbar-brand h2 ms-3 text-warning " href="/">Back to Home page </a>   
+            </div>
+            
+            <div>
+                {% if not user.is_authenticated %}
+                <a class="btn btn-sm btn-warning" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'register' %}">Register</a>
+                {% else %}
+                <span class="text-light ">You are logged in as {{ user }} </span>
+                <span ><a href="{% url 'logout' %}" class="btn btn-danger px-4 rounded-pill">Logout</a> </span>
+                {% endif %}
+            </div>
+        </div>
+    </nav> 
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-1 shadow-sm">
+            <div class="card-header bg-success-subtle mb-3 py-3">
+                <h1 class="h3 text-center text-dark " style="letter-spacing: 6px; ">
+                  {% if form.instance.pk %} Update {% else %} Create {% endif %} Product
+                </h1>
+            </div>
+
+            <div class="card-body">
+                <form method="post" action="{% url 'product_create' %}" novalidate>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="d-grid mt-3 gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg" >
+                            Save Product
+                        </button>
+                        <a href="{% url 'product_list' %}" class="btn btn-link btn-lg text-muted ">
+                            Inventory List
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

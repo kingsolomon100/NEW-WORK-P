@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Update Product | {{ product.name }} {% endblock %}
+
+{% block content %}
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-1 shadow-sm ">
+                <div class="card-header d-flex justify-content-between align-item-center py-3 bg-primary ">
+                    <h2 class="h3 text-light mb-0">
+                        Update product
+                    </h2>
+                    <span class="badge text-primary bg-white p-2"> ID: {{ product.product_id}} </span>
+                </div>
+
+                <div class="card-body mt-3">
+                    <p class="text-muted mb-0">
+                        Edit the details for <strong>{{ product.name }}</strong> below 
+                    </p>
+                    <hr>
+                    <form method="post" action="{% url 'product_update' product.product_id %}" novalidate>
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="d-grid gap-2 mb-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                Save change
+                            </button>
+                            <a href="{% url 'product_list' %}" class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                    <div class="card-footer text-end ">
+                        <small class="text-muted ">Last updated: {{ product.updated_at|date:"M d, Y, H:i" }} </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

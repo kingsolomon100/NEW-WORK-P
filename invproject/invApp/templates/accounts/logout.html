@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+
+{% block title %} Logout | Inventory management system {% endblock %}
+
+{% block content %}
+<div class="row justify-content-center d-flex align-item-center " >
+    <div class="col-md-5 col-lg-4 text-center">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body">
+                <div class="mb-4">
+                    <div class="display-4">
+                        😎
+                    </div>
+                </div>
+                <h3 class="fw-bold text-danger">
+                    confirm logout
+                </h3>
+                <p class="lead">
+                    Are you sure you want to end this session?
+                    you will need to sign back to manage your invoices.
+                </p>
+           
+                <div class="d-grid gap-2 mt-3">
+                    <form method="post" action="{% url 'logout' %}" novalidate>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger w-100 btn-lg mb-3 rounded-pill">
+                            Yes, Logout
+                        </button>
+                        <a href="{% url 'product_list' %}" class="btn btn-outline-secondary rounded-pill btn-lg">
+                            No, back to product list
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <p class="mt-4 text-muted small">
+            Secure session management &COPY; 2026
+        </p>
+        
+    </div> 
+</div>
+{% endblock %}

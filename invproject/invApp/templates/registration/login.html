@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Login - Inventory System {% endblock %}
+
+{% block content %}
+<div class=" d-flex justify-content-center align-item-center py-4 ">
+    <div class="card p-5 rounded-2 shadow-sm ">
+        <div class="text-center">
+            <div class="display-4 mb-3">
+                🚀
+            </div>
+            <h2 class="text-body-emphasis mb-3">
+                Invoice management <br> System
+            </h2>
+            <p class="text-muted mb-3">
+                sign in your account
+            </p>
+        </div>
+        <form method="post" action="{% url 'login' %}" style="max-width: 400px; width: 100%;">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{next}}">
+            <div class="form-floating">
+                 {{ form | crispy }}
+            </div>
+            <div class="text-end mt-3">
+                <a href="{% url 'password_reset' %}" class="text-primary-subtle text-decoration-none">
+                    Forget Password
+                </a>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-2 btn-lg ">Login</button>
+        </form>
+        <div class="text-center mt-3">
+            <p class="lead ">
+                Don't have an account yet?
+            </p>
+            <a href="{% url 'register' %}" class="h4 text-outline-secondary ">Register Here</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
